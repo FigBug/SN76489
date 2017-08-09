@@ -50,7 +50,7 @@ SN76489AudioProcessor::SN76489AudioProcessor()
     addPluginParameter (new slParameter (paramPulse3Level,     "Pulse 3 Level",      "Pulse 3",     "", 0.0f, 1.0f,  0.0f, 0.0f, 1.0f, percentTextFunction));
     addPluginParameter (new slParameter (paramNoiseLevel,      "Noise Level",        "Noise",       "", 0.0f, 1.0f,  0.0f, 0.0f, 1.0f, percentTextFunction));
     addPluginParameter (new slParameter (paramNoiseWhite,      "Noise Type",         "Type",        "", 0.0f, 1.0f,  1.0f, 0.0f, 1.0f, typeTextFunction));
-    addPluginParameter (new slParameter (paramNoiseShift,      "Noise Speed",        "Speed",       "", 0.0f, 4.0f,  1.0f, 0.0f, 1.0f, speedTextFunction));
+    addPluginParameter (new slParameter (paramNoiseShift,      "Noise Speed",        "Speed",       "", 0.0f, 3.0f,  1.0f, 0.0f, 1.0f, speedTextFunction));
 }
 
 SN76489AudioProcessor::~SN76489AudioProcessor()
