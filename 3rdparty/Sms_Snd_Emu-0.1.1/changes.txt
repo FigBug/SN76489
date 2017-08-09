@@ -1,0 +1,45 @@
+Sms_Snd_Emu Change Log
+
+
+Sms_Snd_Emu 0.1.1
+-----------------
+
+- Moved VGM player-related modules to Game_Music_Emu library
+
+- Added note about compiler optimizer bugs
+
+- Replaced Blip_Buffer::buffer_size() and Blip_Buffer::units_per_sample() with
+simpler functions (see Blip_Buffer.h and updated demo)
+
+	// old way
+	if ( !buf.buffer_size( sample_count ) )
+		out_of_memory();
+	buf.units_per_sample( clocks_per_sec / samples_per_sec );
+	
+	// new way
+	int length = 1000 / 2; // 1/2 second buffer length
+	if ( !buf.sample_rate( samples_per_sec, length ) )
+		out_of_memory();
+	buf.clock_rate( clocks_per_sec );
+
+- Renamed Sms_Apu::master_volume() to volume()
+
+- Added Sms_Apu::output() to assign all oscillators in one call.
+
+- Expanded notes
+
+- Updated to Blip_Buffer 0.3.0
+
+- Improved demo and changed it to use new Stereo_Buffer
+
+- Made assertions more descriptive when they fail
+
+- Changed noise oscillator to handle a period of 0 so it would work in a
+Genesis emulator or GYM player.
+
+
+Sms_Snd_Emu 0.1.0
+-----------------
+
+- First release
+

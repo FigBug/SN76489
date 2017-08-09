@@ -1,0 +1,326 @@
+Sms_Snd_Emu Notes
+
+
+Blip_Buffer operation
+---------------------
+
+The demo shows basic Blip_Buffer use. For more information and examples of
+using Blip_Buffer, download the full Blip_Buffer library package from
+http://www.slack.net/~ant/nes-emu/
+
+
+Stereo output
+-------------
+
+Stereo output is handled in a different manner than usual; rather than have the
+common left and right buffers and add to both buffers for sounds in the center,
+three buffers are used: left, center, right. Mono output is achieved simply and
+efficiently by setting all three outputs to the same buffer. This yields a much
+simpler and higher-performance implementation, since most sounds are in the
+center.
+
+The included Stereo_Mixer provides one Blip_Buffer for each of the center,
+left, and right channels. It generates output by adding the center buffer to
+both the left and right buffers, and optimizes for the common case where no
+stereo output was made for a particular frame.
+
+	left  = center buffer + left buffer
+	right = center buffer + right buffer
+
+
+Sound chip accuracy
+-------------------
+
+I didn't see mention of the volume non-linearity in "SN79489 notes", but found
+a step multiplier of 1.26 in an emulator source file which matches the output
+of a SEGA Genesis Powerbase Convertor fairly well. I found another table
+measured from a SEGA Master System 2 but it sounded too linear and loud.
+
+
+Using the APU in an emulator
+----------------------------
+
+The following code skeleton shows basic use of the APU in an emulator:
+
+#include "Sms_Apu.h"
+
+Blip_Buffer buf;
+Sms_Apu apu;
+
+sms_time_t total_cycles;
+sms_time_t cycles_remain;
+
+sms_time_t cpu_time() {
+	return total_cycles - cycles_remain;
+}
+
+void cpu_write_port( int port, int data )
+{
+	if ( (port & 0xff) == 0x06 )
+		apu.write_ggstereo( cpu_time(), data );
+	else if ( ((port & 0xc0) == 0x40 )
+		apu.write_data( cpu_time(), data );
+}
+
+void emulate_cpu( sms_time_t cycle_count )
+{
+	total_cycles += cycle_count;
+	cycles_remain += cycle_count;
+	
+	while ( cycles_remain > 0 )
+	{
+		// emulate opcode
+		// ...
+		cycles_remain -= cycle_table [opcode];
+	}
+}
+
+void output_samples( const blip_sample_t*, size_t count );
+const size_t out_size = 4096;
+blip_sample_t out_buf [out_size];
+
+void end_time_frame( sms_time_t length )
+{
+	apu.end_frame( length );
+	buf.end_frame( length );
+	total_cycles -= length;     
+	
+	// Read some samples out of Blip_Buffer if there are enough to
+	// fill our output buffer
+	if ( buf.samples_avail() >= out_size )
+	{
+		size_t count = buf.read_samples( out_buf, out_size );
+		output_samples( out_buf, count );
+	}
+}
+
+void render_frame()
+{
+	// ...
+	end_time_frame( elapsed() );
+}
+
+void init()
+{
+	if ( !buf.sample_rate( 44100 ) )
+		error( "Out of memory" );
+	buf.clock_rate( 3579545 );
+	apu.output( &buf );
+}
+
+Time frames
+-----------
+
+Synthesis is usually of greater duration than the length of the sample buffer
+and limited range of the time type. Because of this, synthesis can be broken
+into individual frames with time specified relative to the beginning of the
+frame.
+
+A frame of sound is made with Blip_Buffer by adding transitions and ended by
+specifying its duration to end_frame(); this begins a new frame after the old
+one.
+
+The resulting samples of previous frames can be read out of the buffer with
+read_samples(). Once read the samples are removed. Unread samples reduce buffer
+space available to the current frame.
+
+Time frames can be any length, so long as they fit into the buffer. Successive
+time frames don't need to be the same length; each time frame can be a
+different length.
+
+
+Output sample rate
+------------------
+
+The library works best with an output sample rate around 44-48 kHz. Because the
+output is band-limited, there is little reason to use a higher sampling rate
+(i.e. 96 kHz) unless it benefits the output hardware.
+
+
+Problems due to compiler's optimizer
+------------------------------------
+
+If you are having problems with the library first try lowering or turning off
+the compiler's optimizer. If this fixes the problem, contact me so I can add a
+workaround in the next version.
+
+
+Limited Blip_Buffer length
+--------------------------
+
+A Blip_Buffer can't be larger than approximately 65000 samples. At a 44100
+sample rate, the length is limited to 1500 milliseconds. This is unlikely to be
+a problem since synthesis is usually done in much smaller time segments.
+
+
+Thread-safety
+-------------
+
+When using multiple threads, except where noted you must ensure that only one
+thread invokes a function at a time; the library is not written to handle
+concurrent operations. Most functions fall into either one-time setup or
+ongoing operations, so this won't be much of an issue.
+
+
+Treble equalization (low-pass filtering)
+----------------------------------------
+
+Blip_Synth and Blip_Wave have flexible high-frequency equalization to allow
+matching the characteristics of sound hardware. Blip_Eq stores the parameters.
+
+Blip_Eq( treble ) specifies an exponential rolloff beginning at 0 Hz and
+attenuating by 'treble' dB at half the sample rate. For example, with treble =
+-12 dB, the following results:
+
+  0dB ---___  
+            ~~~---___
+	                 ~~~---___
+	                          ~~~---___
+	                                   ~~~---_* treble = -12dB
+	                                   
+-18dB - - - - - - - - - - - - - - - - - - - - - 
+	  0                                sample rate / 2
+
+
+Blip_Eq( treble, cutoff, sample_rate ) specifies an exponential rolloff
+beginning at 'cutoff' Hz and attenuating by 'treble' dB at 22kHz. For example,
+with cutoff = 8000 Hz and treble = -6 dB, the following results:
+
+        cutoff = 8kHz
+  0dB -------*__                
+	            ~~--__ treble = -6dB
+	                  ~~-*__
+	                        ~~--__
+	                              ~~--__
+	                                    ~~--__
+-18dB - - - - - - - - - - - - - - - - - - - - - -
+	  0      8kHz      22kHz               44kHz ...
+
+
+
+Bass frequency (high-pass filtering)
+------------------------------------
+
+Blip_Buffer::bass_freq( breakpoint ) results in a steep rolloff which passes
+-3dB attenuation at 'breakpoint' Hz. For example, with breakpoint = 1000 Hz,
+the following results:
+
+      breakpoint = 1000 Hz
+ 0dB                 ___________
+-3dB      ,_*---~~~~~       
+        _~
+       /
+	  /
+      |
+      |
+-21dB - - - - - - - - - - - - -
+	  0   1000 Hz            4000 Hz
+
+The primary purpose of Blip_Buffer::bass_freq() is to remove any DC component
+(an unchanging offset from center level) from the output since it would reduce
+the available volume range. The default value of 15 Hz works well in general.
+The breakpoint can be increased to simulate a smaller speaker. Since DC removal
+can hide erroneous Blip_Synth-based oscillators which drift, it can be useful
+to disable low-pass filtering by setting the breakpoint to 0 Hz and examine the
+output with a sound program. Blip_Wave oscillators are immune since they deal
+in absolute amplitudes rather than differences.
+
+
+Compatibility/Performance
+-------------------------
+
+Little compatibility checking and performance tuning have been done for common
+platforms. Any assistance in this would be appreciated. If you have *any*
+trouble or come up with improvements, contact me.
+
+
+Configuration
+-------------
+
+The header "blargg_common.h" is used to establish a common environment. It
+attempts to automatically determine the features of the environment, but might
+need assistance.
+
+If HAVE_CONFIG_H is defined, the file "config.h" is included at the beginning
+of each library header file, allowing configuration options for the library to
+be set. It's fine if other libraries also use this scheme, as they won't
+conflict.
+
+Some libraries depend on the byte ordering of multibyte types. If this can't be
+determined and the library requires it, a compilation error will result. For
+big-endian (most significant byte first, i.e. Motorola 68000, PowerPC), #define
+BLARGG_BIG_ENDIAN to 1. For little-endian (least significant byte first, i.e.
+Intel x86), #define BLARGG_LITTLE_ENDIAN to 1.
+
+Pre-ISO C++ compilers might not support bool. Support is provided where bool is
+not available, but the compiler's support of bool might not be properly
+determined. If errors occur in "blargg_common.h" in the bool section, #define
+BLARGG_COMPILER_HAS_BOOL to 1 or 0 depending on whether your compiler supports
+bool or not.
+
+If you have any problems with "blargg_common.h", contact me.
+
+
+Boost Compatibility
+-------------------
+
+Boost is a collection of useful libraries which provide basic services. If it's
+not installed in your environment or your environment isn't supported, a small
+substitute is included in the "boost/" directory. This substitute implements a
+small subset of boost in a way that will work with most compilers. If boost is
+already installed, delete the included "boost/" directory. For more information
+about boost, see http://boost.org/
+
+
+Error handling
+--------------
+
+To alloc compatibility with older (ARM) C++ compilers, no exceptions are thrown
+by any of the libraries. The library is exception-safe, and any exceptions
+which occur are not intercepted.
+
+Memory allocation is kept to an absolute minimum. If the C++ compiler's memory
+allocator throws an exception when no more memory is available, this will be
+allowed to propagate, otherwise if no exceptions are used a lack of memory will
+be reported via the return value.
+
+Significant violations of the documented interface are flagged with debug-only
+assertions. Failure of these usually indicates a caller error rather than a
+defect in the library.
+
+
+Support for 16-bit ints
+-----------------------
+
+Some compilers for smaller architectures use 16-bits for the 'int' type because
+it improves performance. For the most part 16-bit ints work fine with these
+libraries, though I haven't thoroughly checked for reliance on 32 bits. If
+you'd like well-tested support, contact me. I'm not sure whether supporting
+16-bit ints provides much value.
+
+
+Naming conventions
+------------------
+
+Multi-word names have an underscore '_' separator between individual words.
+
+Functions are named with lowercase words. Functions which perform an action
+with side-effects are named with a verb phrase (i.e. load, move, run).
+Functions which set or return the value of a piece of state are named using a
+noun phrase (i.e. loaded, moved, running).
+
+Classes are named with capitalized words. Only the first letter of an acronym
+is capitalized. Class names are nouns, sometimes suggestive of what they do
+(i.e. File_Scanner).
+
+Structure, enumeration, and typedefs to these and built-in types are named
+using lowercase words with a _t suffix.
+
+Macros are named with all-uppercase words.
+
+Internal names which can't be hidden due to technical reasons have an
+underscore '_' suffix.
+
+
+-- 
+Shay Green <blargg@mail.com>
