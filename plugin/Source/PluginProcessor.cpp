@@ -122,34 +122,74 @@ void SN76489AudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer&
         {
             noteQueue.add (msg.getNoteNumber());
             velocity = msg.getVelocity();
+            
+            for (int i = 0; i < 3; i++)
+            {
+                if (channelInfo[i].note == -1)
+                {
+                    channelInfo[i].note = msg.getNoteNumber();
+                    channelInfo[i].velocity = msg.getVelocity();
+                    channelInfo[i].dirty = true;
+                    break;
+                }
+            }
         }
         else if (msg.isNoteOff())
         {
             noteQueue.removeFirstMatchingValue (msg.getNoteNumber());
+            
+            for (int i = 0; i < 3; i++)
+            {
+                if (channelInfo[i].note == msg.getNoteNumber())
+                {
+                    channelInfo[i].note = -1;
+                    channelInfo[i].velocity = 0;
+                    channelInfo[i].dirty = true;
+                }
+            }
         }
         else if (msg.isAllNotesOff())
         {
             noteQueue.clear();
+            
+            for (int i = 0; i < 3; i++)
+            {
+                if (channelInfo[i].note != -1)
+                {
+                    channelInfo[i].note = -1;
+                    channelInfo[i].velocity = 0;
+                    channelInfo[i].dirty = true;
+                }
+            }
         }
         
         const int curNote = noteQueue.size() > 0 ? noteQueue.getFirst() : -1;
         
         blip_time_t time = 0;
         
-        if (curNote != lastNote)
-        {
-            int v = curNote == -1 ? 0 : velocity;
-            
+        
+         if (channelInfo[0].dirty)
+         {
+             int v = channelInfo[0].velocity;
+             int curNote = channelInfo[0].note;
+             
             // Tone 1
             apu.write_data (time, 0x80 | (0 << 5) | (1 << 4) | 0xF - int (p1Level * v / 127.0 * 0xF));
             
             if (curNote != -1)
             {
                 int period = int (3579545.0 / (MidiMessage::getMidiNoteInHertz (curNote) * 2 * 16));
+                period = jlimit (1, 0x3ff, period);
                 
                 apu.write_data (time, 0x80 | (0 << 5) | (0 << 4) | (period & 0xF));
                 apu.write_data (time, period >> 4);
             }
+         }
+
+        if (channelInfo[1].dirty)
+        {
+            int v = channelInfo[1].velocity;
+            int curNote = channelInfo[1].note;
 
             // Tone 2
             apu.write_data (time, 0x80 | (1 << 5) | (1 << 4) | 0xF - int (p2Level * v / 127.0 * 0xF));
@@ -157,10 +197,17 @@ void SN76489AudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer&
             if (curNote != -1)
             {
                 int period = int (3579545.0 / (MidiMessage::getMidiNoteInHertz (curNote) * 2 * 16));
+                period = jlimit (1, 0x3ff, period);
                 
                 apu.write_data (time, 0x80 | (1 << 5) | (0 << 4) | (period & 0xF));
                 apu.write_data (time, period >> 4);
             }
+        }
+
+        if (channelInfo[2].dirty)
+        {
+            int v = channelInfo[2].velocity;
+            int curNote = channelInfo[2].note;
 
             // Tone 3
             apu.write_data (time, 0x80 | (2 << 5) | (1 << 4) | 0xF - int (p3Level * v / 127.0 * 0xF));
@@ -168,11 +215,17 @@ void SN76489AudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer&
             if (curNote != -1)
             {
                 int period = int (3579545.0 / (MidiMessage::getMidiNoteInHertz (curNote) * 2 * 16));
+                period = jlimit (1, 0x3ff, period);
                 
                 apu.write_data (time, 0x80 | (2 << 5) | (0 << 4) | (period & 0xF));
                 apu.write_data (time, period >> 4);
             }
-
+        }
+        
+        if (curNote != lastNote)
+        {
+            int v = curNote == -1 ? 0 : velocity;
+            
             // Noise
             apu.write_data (time, 0x80 | (3 << 5) | (1 << 4) | 0xF - int (nLevel * v / 127.0 * 0xF));
             

@@ -104,7 +104,6 @@ inline void Sms_Noise::reset() {
 
 void Sms_Noise::run( sms_time_t time, sms_time_t end_time )
 {
-	int cur_amp = 0;
 	int period = *this->period * 2;
 	if ( !volume ) {
 		if ( last_amp ) {

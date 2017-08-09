@@ -60,6 +60,15 @@ private:
     Stereo_Buffer buf;
     const long clocks_per_sec = 3579545;
     
+    struct ChannelInfo
+    {
+        int note = -1;
+        int velocity = 0;
+        bool dirty = false;
+    };
+    
+    ChannelInfo channelInfo[3];
+    
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SN76489AudioProcessor)
 };

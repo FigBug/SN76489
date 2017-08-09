@@ -6,4 +6,4 @@
 */
 
 #include "AppConfig.h"
-#include <dRowAudio/dRowAudio.mm>
+#include <drowaudio/dRowAudio.mm>
