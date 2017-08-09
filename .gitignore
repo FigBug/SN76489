@@ -2,3 +2,8 @@
 *.xcscmblueprint
 *.xcuserstate
 *.xcscheme
+Debug
+Release
+Debug64
+Release64
+
