@@ -19,20 +19,20 @@ const char* SN76489AudioProcessor::paramNoiseWhite       = "noiseWhite";
 const char* SN76489AudioProcessor::paramNoiseShift       = "noiseShift";
 
 //==============================================================================
-String percentTextFunction (const slParameter& p)
+String percentTextFunction (const slParameter& p, float v)
 {
-    return String::formatted("%.0f%%", p.getUserValue() * 100);
+    return String::formatted("%.0f%%", v / p.getUserRangeEnd() * 100);
 }
 
-String typeTextFunction (const slParameter& p)
+String typeTextFunction (const slParameter& p, float v)
 {
-    return p.getUserValue() > 0.0f ? "White" : "Periodic";
+    return v > 0.0f ? "White" : "Periodic";
 }
 
 
-String speedTextFunction (const slParameter& p)
+String speedTextFunction (const slParameter& p, float v)
 {
-    switch (int (p.getUserValue()))
+    switch (int (v))
     {
         case 0: return "Fast";
         case 1: return "Medium";
