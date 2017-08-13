@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="JPnRUR" name="SN76489" projectType="audioplug" version="1.0.0"
+<JUCERPROJECT id="JPnRUR" name="SN76489" projectType="audioplug" version="1.0.1"
               bundleIdentifier="com.socalabs.SN76489" includeBinaryInAppConfig="1"
               buildVST="1" buildVST3="0" buildAU="1" buildAUv3="0" buildRTAS="0"
               buildAAX="0" pluginName="SN76489" pluginDesc="SN76489" pluginManufacturer="SocaLabs"
-              pluginManufacturerCode="Soca" pluginCode="Tone" pluginChannelConfigs="{0,1}"
+              pluginManufacturerCode="Soca" pluginCode="Sn76" pluginChannelConfigs="{0,1}"
               pluginIsSynth="1" pluginWantsMidiIn="1" pluginProducesMidiOut="0"
               pluginIsMidiEffectPlugin="0" pluginEditorRequiresKeys="0" pluginAUExportPrefix="SN76489AU"
               pluginRTASCategory="" aaxIdentifier="com.socalabs.SN76489" pluginAAXCategory="AAX_ePlugInCategory_Dynamics"
