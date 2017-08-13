@@ -16,6 +16,8 @@
 SN76489AudioProcessorEditor::SN76489AudioProcessorEditor (SN76489AudioProcessor& p)
     : slAudioProcessorEditor (p), processor (p)
 {
+    additionalProgramming = "Shay Green";
+    
     logo = ImageFileFormat::loadFrom (BinaryData::logo_png, BinaryData::logo_pngSize);
     
     for (slParameter* pp : p.getPluginParameters())
@@ -42,12 +44,8 @@ SN76489AudioProcessorEditor::~SN76489AudioProcessorEditor()
 void SN76489AudioProcessorEditor::paint (Graphics& g)
 {
     slAudioProcessorEditor::paint (g);
-    
-    g.setFont (Font (15.0f));
-    g.setColour (Colours::white);
-    g.drawText("Ver: " JucePlugin_VersionString, getLocalBounds().reduced (4), Justification::topRight);
-    
-    g.drawImageAt (logo, getWidth() / 2 - logo.getWidth() / 2, headerHeight / 2 - logo.getHeight() / 2);
+        
+    g.drawImageAt (logo, getWidth() / 2 - logo.getWidth() / 2, 0);
 }
 
 void SN76489AudioProcessorEditor::resized()

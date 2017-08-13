@@ -1,3 +1,6 @@
+*.suo
+*.db
+*.opendb
 *.a
 *.xcscmblueprint
 *.xcuserstate
