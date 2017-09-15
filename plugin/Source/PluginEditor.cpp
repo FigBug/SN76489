@@ -34,10 +34,13 @@ SN76489AudioProcessorEditor::SN76489AudioProcessorEditor (SN76489AudioProcessor&
     
     scope.setNumSamplesPerPixel (2);
     scope.setVerticalZoomFactor (3.0f);
+
+    p.setEditor (this);
 }
 
 SN76489AudioProcessorEditor::~SN76489AudioProcessorEditor()
 {
+    processor.setEditor (nullptr);
 }
 
 //==============================================================================

@@ -242,6 +242,7 @@ void SN76489AudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer&
     
     float* data = buffer.getWritePointer (0);
     
+    ScopedLock sl (editorLock);
     if (editor)
         editor->scope.addSamples (data, buffer.getNumSamples());
 }

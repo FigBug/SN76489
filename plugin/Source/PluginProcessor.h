@@ -46,6 +46,12 @@ public:
     static const char* paramNoiseWhite;
     static const char* paramNoiseShift;
 
+    void setEditor (SN76489AudioProcessorEditor* editor_)
+    {
+        ScopedLock sl (editorLock);
+        editor = editor_;
+    }
+
 private:
     void runUntil (int& done, AudioSampleBuffer& buffer, int pos);
     
@@ -54,7 +60,8 @@ private:
     Array<int> noteQueue;
     
     LinearSmoothedValue<float> outputSmoothed;
-    Component::SafePointer<SN76489AudioProcessorEditor> editor;
+    CriticalSection editorLock;
+    SN76489AudioProcessorEditor* editor = nullptr;
     
     Sms_Apu apu;
     Stereo_Buffer buf;
