@@ -12,15 +12,17 @@
 #include "PluginEditor.h"
 #include "BinaryData.h"
 
+using namespace gin;
+
 //==============================================================================
 SN76489AudioProcessorEditor::SN76489AudioProcessorEditor (SN76489AudioProcessor& p)
-    : slAudioProcessorEditor (p), processor (p)
+  : GinAudioProcessorEditor (p), processor (p)
 {
     additionalProgramming = "Shay Green";
     
     logo = ImageFileFormat::loadFrom (BinaryData::logo_png, BinaryData::logo_pngSize);
     
-    for (slParameter* pp : p.getPluginParameters())
+    for (Parameter* pp : p.getPluginParameters())
     {
         ParamComponent* c = pp->isOnOff() ? (ParamComponent*)new Switch (pp) : (ParamComponent*)new Knob (pp);
         
@@ -46,7 +48,7 @@ SN76489AudioProcessorEditor::~SN76489AudioProcessorEditor()
 //==============================================================================
 void SN76489AudioProcessorEditor::paint (Graphics& g)
 {
-    slAudioProcessorEditor::paint (g);
+    GinAudioProcessorEditor::paint (g);
         
     g.drawImageAt (logo, getWidth() / 2 - logo.getWidth() / 2, 0);
 }
@@ -55,7 +57,7 @@ void SN76489AudioProcessorEditor::resized()
 {
     using AP = SN76489AudioProcessor;
     
-    slAudioProcessorEditor::resized();
+    GinAudioProcessorEditor::resized();
     
     Rectangle<int> r = getControlsArea();
     

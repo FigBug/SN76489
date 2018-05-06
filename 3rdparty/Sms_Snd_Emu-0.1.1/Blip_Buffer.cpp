@@ -67,7 +67,7 @@ bool Blip_Buffer::sample_rate( long sps, int msec )
 		if ( !buffer_ )
 			return false;
 		
-		buffer_size_ = new_size;
+		buffer_size_ = unsigned (new_size);
 	}
 	
 	clear();
@@ -116,14 +116,14 @@ size_t Blip_Buffer::read_samples( blip_sample_t* out, size_t max_samples, bool s
 	long accum = reader_accum;
 	
 	if ( !stereo ) {
-		for ( unsigned n = count; n--; ) {
+		for ( unsigned n = unsigned (count); n--; ) {
 			*out++ = accum >> accum_fract;
 			accum -= accum >> bass_shift;
 			accum += (long (*buf++) - sample_offset) << accum_fract;
 		}
 	}
 	else {
-		for ( unsigned n = count; n--; ) {
+		for ( unsigned n = unsigned (count); n--; ) {
 			*out = accum >> accum_fract;
 			out += 2;
 			accum -= accum >> bass_shift;

@@ -57,7 +57,7 @@ void Sms_Square::run( sms_time_t time, sms_time_t end_time )
 		}
 		else if ( time < end_time ) {
 			// keep calculating phase
-			int count = (end_time - time + period - 1) / period;
+			int count = int ((end_time - time + period - 1) / period);
 			phase = (phase + count) & 1;
 			time += count * period;
 		}
@@ -85,7 +85,7 @@ void Sms_Square::run( sms_time_t time, sms_time_t end_time )
 			this->last_amp = phase ? volume : -volume;
 		}
 	}
-	delay = time - end_time;
+	delay = int (time - end_time);
 }
 
 // Sms_Noise
@@ -143,7 +143,7 @@ void Sms_Noise::run( sms_time_t time, sms_time_t end_time )
 			this->shifter = shifter;
 			this->last_amp = amp >> 1;
 		}
-		delay = time - end_time;
+		delay = int (time - end_time);
 	}
 }
 

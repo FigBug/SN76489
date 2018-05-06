@@ -11,6 +11,8 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
+using namespace gin;
+
 const char* SN76489AudioProcessor::paramPulse1Level      = "pulse1Level";
 const char* SN76489AudioProcessor::paramPulse2Level      = "pulse2Level";
 const char* SN76489AudioProcessor::paramPulse3Level      = "pulse3Level";
@@ -19,18 +21,18 @@ const char* SN76489AudioProcessor::paramNoiseWhite       = "noiseWhite";
 const char* SN76489AudioProcessor::paramNoiseShift       = "noiseShift";
 
 //==============================================================================
-String percentTextFunction (const slParameter& p, float v)
+String percentTextFunction (const Parameter& p, float v)
 {
     return String::formatted("%.0f%%", v / p.getUserRangeEnd() * 100);
 }
 
-String typeTextFunction (const slParameter& p, float v)
+String typeTextFunction (const Parameter& p, float v)
 {
     return v > 0.0f ? "White" : "Periodic";
 }
 
 
-String speedTextFunction (const slParameter& p, float v)
+String speedTextFunction (const Parameter& p, float v)
 {
     switch (int (v))
     {
@@ -45,12 +47,12 @@ String speedTextFunction (const slParameter& p, float v)
 //==============================================================================
 SN76489AudioProcessor::SN76489AudioProcessor()
 {
-    addPluginParameter (new slParameter (paramPulse1Level,     "Pulse 1 Level",      "Pulse 1",     "", 0.0f, 1.0f,  0.0f, 1.0f, 1.0f, percentTextFunction));
-    addPluginParameter (new slParameter (paramPulse2Level,     "Pulse 2 Level",      "Pulse 2",     "", 0.0f, 1.0f,  0.0f, 0.0f, 1.0f, percentTextFunction));
-    addPluginParameter (new slParameter (paramPulse3Level,     "Pulse 3 Level",      "Pulse 3",     "", 0.0f, 1.0f,  0.0f, 0.0f, 1.0f, percentTextFunction));
-    addPluginParameter (new slParameter (paramNoiseLevel,      "Noise Level",        "Noise",       "", 0.0f, 1.0f,  0.0f, 0.0f, 1.0f, percentTextFunction));
-    addPluginParameter (new slParameter (paramNoiseWhite,      "Noise Type",         "Type",        "", 0.0f, 1.0f,  1.0f, 0.0f, 1.0f, typeTextFunction));
-    addPluginParameter (new slParameter (paramNoiseShift,      "Noise Speed",        "Speed",       "", 0.0f, 3.0f,  1.0f, 0.0f, 1.0f, speedTextFunction));
+    addPluginParameter (new Parameter (paramPulse1Level,     "Pulse 1 Level",      "Pulse 1",     "", 0.0f, 1.0f,  0.0f, 1.0f, 1.0f, percentTextFunction));
+    addPluginParameter (new Parameter (paramPulse2Level,     "Pulse 2 Level",      "Pulse 2",     "", 0.0f, 1.0f,  0.0f, 0.0f, 1.0f, percentTextFunction));
+    addPluginParameter (new Parameter (paramPulse3Level,     "Pulse 3 Level",      "Pulse 3",     "", 0.0f, 1.0f,  0.0f, 0.0f, 1.0f, percentTextFunction));
+    addPluginParameter (new Parameter (paramNoiseLevel,      "Noise Level",        "Noise",       "", 0.0f, 1.0f,  0.0f, 0.0f, 1.0f, percentTextFunction));
+    addPluginParameter (new Parameter (paramNoiseWhite,      "Noise Type",         "Type",        "", 0.0f, 1.0f,  1.0f, 0.0f, 1.0f, typeTextFunction));
+    addPluginParameter (new Parameter (paramNoiseShift,      "Noise Speed",        "Speed",       "", 0.0f, 3.0f,  1.0f, 0.0f, 1.0f, speedTextFunction));
 }
 
 SN76489AudioProcessor::~SN76489AudioProcessor()
@@ -82,7 +84,7 @@ void SN76489AudioProcessor::runUntil (int& done, AudioSampleBuffer& buffer, int 
         {
             blip_sample_t out[1024];
             
-            int count = buf.read_samples (out, jmin (todo, 1024 / 2, (int) buf.samples_avail()));
+            int count = int (buf.read_samples (out, jmin (todo, 1024 / 2, (int) buf.samples_avail())));
         
             float* data = buffer.getWritePointer (0, done);
             for (int i = 0; i < count; i++)

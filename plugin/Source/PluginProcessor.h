@@ -8,19 +8,17 @@
   ==============================================================================
 */
 
-#ifndef PLUGINPROCESSOR_H_INCLUDED
-#define PLUGINPROCESSOR_H_INCLUDED
+#pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "Sms_Apu.h"
 #include "Stereo_Buffer.h"
-#include "slCommon.h"
 
 //==============================================================================
 /**
 */
 class SN76489AudioProcessorEditor;
-class SN76489AudioProcessor : public slProcessor
+class SN76489AudioProcessor : public gin::GinProcessor
 {
 public:
     //==============================================================================
@@ -79,6 +77,3 @@ private:
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SN76489AudioProcessor)
 };
-
-
-#endif  // PLUGINPROCESSOR_H_INCLUDED
