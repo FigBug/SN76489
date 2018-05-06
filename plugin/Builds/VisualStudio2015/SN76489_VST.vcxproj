@@ -109,15 +109,9 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-<<<<<<< HEAD
       <AdditionalIncludeDirectories>..\..\JuceLibraryCode;..\..\..\modules\drowaudio\module;..\..\..\modules\gin\modules;..\..\..\modules\juce\modules;../../../3rdparty/Sms_Snd_Emu-0.1.1;../../../modules/slCommon;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.4;JUCE_APP_VERSION_HEX=0x10004;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-=======
-      <AdditionalIncludeDirectories>..\..\JuceLibraryCode;..\..\..\modules\drowaudio\module;..\..\..\..\JUCE\modules;../../../3rdparty/Sms_Snd_Emu-0.1.1;../../../modules/slCommon;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.4;JUCE_APP_VERSION_HEX=0x10004;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
->>>>>>> 831508e073163ad4774ba578bfbe7eac31a584c4
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader/>
       <AssemblerListingLocation>$(IntDir)\</AssemblerListingLocation>
@@ -163,15 +157,9 @@
     </Midl>
     <ClCompile>
       <Optimization>Full</Optimization>
-<<<<<<< HEAD
       <AdditionalIncludeDirectories>..\..\JuceLibraryCode;..\..\..\modules\drowaudio\module;..\..\..\modules\gin\modules;..\..\..\modules\juce\modules;../../../3rdparty/Sms_Snd_Emu-0.1.1;../../../modules/slCommon;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.4;JUCE_APP_VERSION_HEX=0x10004;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-=======
-      <AdditionalIncludeDirectories>..\..\JuceLibraryCode;..\..\..\modules\drowaudio\module;..\..\..\..\JUCE\modules;../../../3rdparty/Sms_Snd_Emu-0.1.1;../../../modules/slCommon;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.4;JUCE_APP_VERSION_HEX=0x10004;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
->>>>>>> 831508e073163ad4774ba578bfbe7eac31a584c4
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader/>
       <AssemblerListingLocation>$(IntDir)\</AssemblerListingLocation>
@@ -220,15 +208,9 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-<<<<<<< HEAD
       <AdditionalIncludeDirectories>..\..\JuceLibraryCode;..\..\..\modules\drowaudio\module;..\..\..\modules\gin\modules;..\..\..\modules\juce\modules;../../../3rdparty/Sms_Snd_Emu-0.1.1;../../../modules/slCommon;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.4;JUCE_APP_VERSION_HEX=0x10004;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-=======
-      <AdditionalIncludeDirectories>..\..\JuceLibraryCode;..\..\..\modules\drowaudio\module;..\..\..\..\JUCE\modules;../../../3rdparty/Sms_Snd_Emu-0.1.1;../../../modules/slCommon;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.4;JUCE_APP_VERSION_HEX=0x10004;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
->>>>>>> 831508e073163ad4774ba578bfbe7eac31a584c4
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader/>
       <AssemblerListingLocation>$(IntDir)\</AssemblerListingLocation>
@@ -273,15 +255,9 @@
     </Midl>
     <ClCompile>
       <Optimization>Full</Optimization>
-<<<<<<< HEAD
       <AdditionalIncludeDirectories>..\..\JuceLibraryCode;..\..\..\modules\drowaudio\module;..\..\..\modules\gin\modules;..\..\..\modules\juce\modules;../../../3rdparty/Sms_Snd_Emu-0.1.1;../../../modules/slCommon;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.4;JUCE_APP_VERSION_HEX=0x10004;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-=======
-      <AdditionalIncludeDirectories>..\..\JuceLibraryCode;..\..\..\modules\drowaudio\module;..\..\..\..\JUCE\modules;../../../3rdparty/Sms_Snd_Emu-0.1.1;../../../modules/slCommon;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;JUCER_VS2015_78A5022=1;JUCE_APP_VERSION=1.0.4;JUCE_APP_VERSION_HEX=0x10004;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=0;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_RTAS=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
->>>>>>> 831508e073163ad4774ba578bfbe7eac31a584c4
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader/>
       <AssemblerListingLocation>$(IntDir)\</AssemblerListingLocation>
