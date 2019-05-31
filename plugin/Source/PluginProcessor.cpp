@@ -31,7 +31,6 @@ String typeTextFunction (const Parameter& p, float v)
     return v > 0.0f ? "White" : "Periodic";
 }
 
-
 String speedTextFunction (const Parameter& p, float v)
 {
     switch (int (v))
