@@ -10,7 +10,7 @@
               aaxIdentifier="com.socalabs.SN76489" pluginAAXCategory="2" jucerVersion="5.4.3"
               companyName="SocaLabs" companyWebsite="www.socalabs.com" companyEmail="info@socalabs.com"
               displaySplashScreen="0" reportAppUsage="0" splashScreenColour="Dark"
-              buildStandalone="1" enableIAA="0" cppLanguageStandard="11" pluginFormats="buildAU,buildStandalone,buildVST"
+              buildStandalone="1" enableIAA="0" cppLanguageStandard="14" pluginFormats="buildAU,buildStandalone,buildVST"
               pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn"
               pluginAUMainType="'aumu'" pluginVSTCategory="kPlugCategSynth">
   <MAINGROUP id="dPRjsF" name="SN76489">
@@ -48,7 +48,8 @@
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
-    <XCODE_MAC targetFolder="Builds/MacOSX" extraCompilerFlags="-Wunused-value">
+    <XCODE_MAC targetFolder="Builds/MacOSX" extraCompilerFlags="-Wunused-value"
+               vstLegacyFolder="../modules/plugin_sdk/vstsdk2.4">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="SN76489"
                        headerPath="../../../3rdparty/Sms_Snd_Emu-0.1.1&#10;../../../modules/slCommon"
@@ -78,9 +79,10 @@
         <MODULEPATH id="gin" path="../modules/gin/modules"/>
         <MODULEPATH id="gin_plugin" path="../modules/gin/modules"/>
         <MODULEPATH id="gin_dsp" path="../modules/gin/modules"/>
+        <MODULEPATH id="juce_dsp" path="../modules/juce/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
-    <VS2017 targetFolder="Builds/VisualStudio2017" toolset="v141_xp">
+    <VS2017 targetFolder="Builds/VisualStudio2017" toolset="v141_xp" vstLegacyFolder="../modules/plugin_sdk/vstsdk2.4">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="Win32"
                        isDebug="1" optimisation="1" targetName="SN76489_32b" headerPath="../../../3rdparty/Sms_Snd_Emu-0.1.1&#10;../../../modules/slCommon"
@@ -121,10 +123,12 @@
         <MODULEPATH id="gin" path="../modules/gin/modules"/>
         <MODULEPATH id="gin_plugin" path="../modules/gin/modules"/>
         <MODULEPATH id="gin_dsp" path="../modules/gin/modules"/>
+        <MODULEPATH id="juce_dsp" path="../modules/juce/modules"/>
       </MODULEPATHS>
     </VS2017>
     <LINUX_MAKE targetFolder="Builds/LinuxMakefile" extraCompilerFlags="-fvisibility=hidden"
-                extraLinkerFlags="-fdata-sections -ffunction-sections -Wl,--gc-sections -Wl,-O1 -Wl,--as-needed -Wl,--strip-all">
+                extraLinkerFlags="-fdata-sections -ffunction-sections -Wl,--gc-sections -Wl,-O1 -Wl,--as-needed -Wl,--strip-all"
+                vstLegacyFolder="../modules/plugin_sdk/vstsdk2.4">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="SN76489"
                        headerPath="../../../3rdparty/Sms_Snd_Emu-0.1.1&#10;../../../modules/slCommon"
@@ -153,6 +157,7 @@
         <MODULEPATH id="gin" path="../modules/gin/modules"/>
         <MODULEPATH id="gin_plugin" path="../modules/gin/modules"/>
         <MODULEPATH id="gin_dsp" path="../modules/gin/modules"/>
+        <MODULEPATH id="juce_dsp" path="../modules/juce/modules"/>
       </MODULEPATHS>
     </LINUX_MAKE>
   </EXPORTFORMATS>
@@ -170,6 +175,7 @@
     <MODULE id="juce_core" showAllCode="1" useLocalCopy="0"/>
     <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0"/>
     <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_events" showAllCode="1" useLocalCopy="0"/>
     <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0"/>
     <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0"/>
