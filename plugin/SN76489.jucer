@@ -53,11 +53,11 @@
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="SN76489"
                        headerPath="../../../3rdparty/Sms_Snd_Emu-0.1.1&#10;../../../modules/slCommon"
-                       osxCompatibility="10.9 SDK" enablePluginBinaryCopyStep="1"/>
+                       osxCompatibility="10.9 SDK" enablePluginBinaryCopyStep="1" recommendedWarnings="LLVM"/>
         <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="SN76489"
                        headerPath="../../../3rdparty/Sms_Snd_Emu-0.1.1&#10;../../../modules/slCommon"
                        osxArchitecture="64BitUniversal" osxCompatibility="10.9 SDK"
-                       enablePluginBinaryCopyStep="1"/>
+                       enablePluginBinaryCopyStep="1" recommendedWarnings="LLVM"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="../modules/juce/modules"/>
