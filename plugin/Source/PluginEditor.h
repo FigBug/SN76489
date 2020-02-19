@@ -20,15 +20,15 @@ class SN76489AudioProcessorEditor  : public gin::GinAudioProcessorEditor
 {
 public:
     SN76489AudioProcessorEditor (SN76489AudioProcessor&);
-    ~SN76489AudioProcessorEditor();
+    ~SN76489AudioProcessorEditor() override;
 
     //==============================================================================
     void resized() override;
     void paint (Graphics& g) override;
 
-    SN76489AudioProcessor& processor;
+    SN76489AudioProcessor& proc;
     
-    drow::TriggeredScope scope;
+    gin::TriggeredScope scope {proc.fifo};
     Image logo;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SN76489AudioProcessorEditor)

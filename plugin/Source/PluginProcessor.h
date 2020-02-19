@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include <JuceHeader.h>
 #include "Sms_Apu.h"
 #include "Stereo_Buffer.h"
 
@@ -23,7 +23,7 @@ class SN76489AudioProcessor : public gin::GinProcessor
 public:
     //==============================================================================
     SN76489AudioProcessor();
-    ~SN76489AudioProcessor();
+    ~SN76489AudioProcessor() override;
 
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
@@ -43,12 +43,8 @@ public:
     static const char* paramNoiseLevel;
     static const char* paramNoiseWhite;
     static const char* paramNoiseShift;
-
-    void setEditor (SN76489AudioProcessorEditor* editor_)
-    {
-        ScopedLock sl (editorLock);
-        editor = editor_;
-    }
+    
+    gin::AudioFifo fifo {1, 44100};
 
 private:
     void runUntil (int& done, AudioSampleBuffer& buffer, int pos);
@@ -58,8 +54,6 @@ private:
     Array<int> noteQueue;
     
     LinearSmoothedValue<float> outputSmoothed;
-    CriticalSection editorLock;
-    SN76489AudioProcessorEditor* editor = nullptr;
     
     Sms_Apu apu;
     Stereo_Buffer buf;

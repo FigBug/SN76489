@@ -16,7 +16,7 @@ using namespace gin;
 
 //==============================================================================
 SN76489AudioProcessorEditor::SN76489AudioProcessorEditor (SN76489AudioProcessor& p)
-  : GinAudioProcessorEditor (p), processor (p)
+  : GinAudioProcessorEditor (p), proc (p)
 {
     additionalProgramming = "Shay Green";
     
@@ -36,13 +36,10 @@ SN76489AudioProcessorEditor::SN76489AudioProcessorEditor (SN76489AudioProcessor&
     
     scope.setNumSamplesPerPixel (2);
     scope.setVerticalZoomFactor (3.0f);
-
-    p.setEditor (this);
 }
 
 SN76489AudioProcessorEditor::~SN76489AudioProcessorEditor()
 {
-    processor.setEditor (nullptr);
 }
 
 //==============================================================================

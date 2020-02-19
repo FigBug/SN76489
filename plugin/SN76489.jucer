@@ -7,7 +7,7 @@
               pluginManufacturerCode="Soca" pluginCode="Sn76" pluginChannelConfigs="{0,1}"
               pluginIsSynth="1" pluginWantsMidiIn="1" pluginProducesMidiOut="0"
               pluginIsMidiEffectPlugin="0" pluginEditorRequiresKeys="0" pluginAUExportPrefix="SN76489AU"
-              aaxIdentifier="com.socalabs.SN76489" pluginAAXCategory="2" jucerVersion="5.4.6"
+              aaxIdentifier="com.socalabs.SN76489" pluginAAXCategory="2" jucerVersion="5.4.7"
               companyName="SocaLabs" companyWebsite="www.socalabs.com" companyEmail="info@socalabs.com"
               displaySplashScreen="0" reportAppUsage="0" splashScreenColour="Dark"
               buildStandalone="1" enableIAA="0" cppLanguageStandard="17" pluginFormats="buildAU,buildStandalone,buildVST"
@@ -49,15 +49,16 @@
   </MAINGROUP>
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" extraCompilerFlags="-Wunused-value"
-               vstLegacyFolder="../modules/plugin_sdk/vstsdk2.4" hardenedRuntime="1">
+               vstLegacyFolder="../modules/plugin_sdk/vstsdk2.4" hardenedRuntime="1"
+               extraDefs="JUCE_COREGRAPHICS_DRAW_ASYNC=1">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="SN76489"
-                       headerPath="../../../3rdparty/Sms_Snd_Emu-0.1.1&#10;../../../modules/slCommon"
-                       osxCompatibility="10.9 SDK" enablePluginBinaryCopyStep="1" recommendedWarnings="LLVM"/>
+                       headerPath="../../../3rdparty/Sms_Snd_Emu-0.1.1&#10;" osxCompatibility="10.9 SDK"
+                       enablePluginBinaryCopyStep="1" recommendedWarnings="LLVM"/>
         <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="SN76489"
-                       headerPath="../../../3rdparty/Sms_Snd_Emu-0.1.1&#10;../../../modules/slCommon"
-                       osxArchitecture="64BitIntel" osxCompatibility="10.9 SDK" enablePluginBinaryCopyStep="1"
-                       recommendedWarnings="LLVM" linkTimeOptimisation="0"/>
+                       headerPath="../../../3rdparty/Sms_Snd_Emu-0.1.1&#10;" osxArchitecture="64BitIntel"
+                       osxCompatibility="10.9 SDK" enablePluginBinaryCopyStep="1" recommendedWarnings="LLVM"
+                       linkTimeOptimisation="0"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="../modules/juce/modules"/>
@@ -85,22 +86,22 @@
     <VS2019 targetFolder="Builds/VisualStudio2019" toolset="v142" vstLegacyFolder="../modules/plugin_sdk/vstsdk2.4">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="Win32"
-                       isDebug="1" optimisation="1" targetName="SN76489_32b" headerPath="../../../3rdparty/Sms_Snd_Emu-0.1.1&#10;../../../modules/slCommon"
+                       isDebug="1" optimisation="1" targetName="SN76489_32b" headerPath="../../../3rdparty/Sms_Snd_Emu-0.1.1&#10;"
                        postbuildCommand="copy /Y &quot;$(OutDir)\$(TargetFileName)&quot; &quot;C:\Program Files (x86)\VSTPlugins&quot;"
                        debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
                        useRuntimeLibDLL="0"/>
         <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="Win32"
-                       isDebug="0" optimisation="3" targetName="SN76489_32b" headerPath="../../../3rdparty/Sms_Snd_Emu-0.1.1&#10;../../../modules/slCommon"
+                       isDebug="0" optimisation="3" targetName="SN76489_32b" headerPath="../../../3rdparty/Sms_Snd_Emu-0.1.1&#10;"
                        postbuildCommand="copy /Y &quot;$(OutDir)\$(TargetFileName)&quot; &quot;C:\Program Files (x86)\VSTPlugins&quot;"
                        debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
                        linkTimeOptimisation="0" useRuntimeLibDLL="0"/>
         <CONFIGURATION name="Debug64" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
-                       isDebug="1" optimisation="1" targetName="SN76489_64b" headerPath="../../../3rdparty/Sms_Snd_Emu-0.1.1&#10;../../../modules/slCommon"
+                       isDebug="1" optimisation="1" targetName="SN76489_64b" headerPath="../../../3rdparty/Sms_Snd_Emu-0.1.1&#10;"
                        postbuildCommand="copy /Y &quot;$(OutDir)\$(TargetFileName)&quot; &quot;C:\Program Files\VSTPlugins&quot;"
                        debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
                        useRuntimeLibDLL="0"/>
         <CONFIGURATION name="Release64" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
-                       isDebug="0" optimisation="3" targetName="SN76489_64b" headerPath="../../../3rdparty/Sms_Snd_Emu-0.1.1&#10;../../../modules/slCommon"
+                       isDebug="0" optimisation="3" targetName="SN76489_64b" headerPath="../../../3rdparty/Sms_Snd_Emu-0.1.1&#10;"
                        postbuildCommand="copy /Y &quot;$(OutDir)\$(TargetFileName)&quot; &quot;C:\Program Files\VSTPlugins&quot;"
                        debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
                        linkTimeOptimisation="0" useRuntimeLibDLL="0"/>
