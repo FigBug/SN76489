@@ -41,7 +41,7 @@ ROOT=$(cd "$(dirname "$0")/.."; pwd)
 cd "$ROOT"
 echo "$ROOT"
 
-BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
+BRANCH=${GITHUB_REF##*/}
 echo "$BRANCH"
 
 cd "$ROOT/ci"
@@ -131,7 +131,7 @@ if [ "$OS" = "linux" ]; then
   zip -r ${PLUGIN}_Linux.zip $PLUGIN.so
 
   if [ "$BRANCH" = "release" ]; then
-    curl -F "files=@${PLUGIN}_Mac.zip" "https://socalabs.com/files/set.php?key=$APIKEY"
+    curl -F "files=@${PLUGIN}_Linux.zip" "https://socalabs.com/files/set.php?key=$APIKEY"
   fi
 fi
 
