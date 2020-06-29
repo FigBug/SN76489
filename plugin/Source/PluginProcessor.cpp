@@ -112,11 +112,11 @@ void SN76489AudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer&
     int done = 0;
     runUntil (done, buffer, 0);
     
-    int pos = 0;
-    MidiMessage msg;
-    MidiBuffer::Iterator itr (midi);
-    while (itr.getNextEvent (msg, pos))
+    for (auto itr : midi)
     {
+        auto msg = itr.getMessage();
+        int pos = itr.samplePosition;
+
         runUntil (done, buffer, pos);
         
         if (msg.isNoteOn())
