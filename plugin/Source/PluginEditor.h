@@ -16,7 +16,7 @@
 //==============================================================================
 /**
 */
-class SN76489AudioProcessorEditor  : public gin::GinAudioProcessorEditor
+class SN76489AudioProcessorEditor  : public gin::ProcessorEditor
 {
 public:
     SN76489AudioProcessorEditor (SN76489AudioProcessor&);
@@ -29,7 +29,6 @@ public:
     SN76489AudioProcessor& proc;
     
     gin::TriggeredScope scope {proc.fifo};
-    Image logo;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SN76489AudioProcessorEditor)
 };

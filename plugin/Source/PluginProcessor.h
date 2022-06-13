@@ -18,7 +18,7 @@
 /**
 */
 class SN76489AudioProcessorEditor;
-class SN76489AudioProcessor : public gin::GinProcessor
+class SN76489AudioProcessor : public gin::Processor
 {
 public:
     //==============================================================================

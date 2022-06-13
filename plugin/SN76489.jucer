@@ -2,17 +2,18 @@
 
 <JUCERPROJECT id="JPnRUR" name="SN76489" projectType="audioplug" version="1.0.4"
               bundleIdentifier="com.socalabs.SN76489" includeBinaryInAppConfig="1"
-              buildVST="1" buildVST3="0" buildAU="1" buildAUv3="0" buildRTAS="0"
+              buildVST="1" buildVST3="1" buildAU="1" buildAUv3="0" buildRTAS="0"
               buildAAX="0" pluginName="SN76489" pluginDesc="SN76489" pluginManufacturer="SocaLabs"
               pluginManufacturerCode="Soca" pluginCode="Sn76" pluginChannelConfigs="{0,1}"
               pluginIsSynth="1" pluginWantsMidiIn="1" pluginProducesMidiOut="0"
               pluginIsMidiEffectPlugin="0" pluginEditorRequiresKeys="0" pluginAUExportPrefix="SN76489AU"
-              aaxIdentifier="com.socalabs.SN76489" pluginAAXCategory="2" jucerVersion="5.4.7"
-              companyName="SocaLabs" companyWebsite="www.socalabs.com" companyEmail="info@socalabs.com"
+              aaxIdentifier="com.socalabs.SN76489" pluginAAXCategory="2" companyName="SocaLabs"
+              companyWebsite="www.socalabs.com" companyEmail="info@socalabs.com"
               displaySplashScreen="0" reportAppUsage="0" splashScreenColour="Dark"
-              buildStandalone="1" enableIAA="0" cppLanguageStandard="17" pluginFormats="buildAU,buildStandalone,buildVST"
+              buildStandalone="1" enableIAA="0" cppLanguageStandard="17" pluginFormats="buildAU,buildStandalone,buildVST,buildVST3"
               pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn"
-              pluginAUMainType="'aumu'" pluginVSTCategory="kPlugCategSynth">
+              pluginAUMainType="'aumu'" pluginVSTCategory="kPlugCategSynth"
+              jucerFormatVersion="1" defines="JUCE_DISPLAY_SPLASH_SCREEN=0&#10;JUCE_MODAL_LOOPS_PERMITTED=1">
   <MAINGROUP id="dPRjsF" name="SN76489">
     <GROUP id="{EE796482-0D02-0052-80F4-B1FE6CE0D41A}" name="Source">
       <GROUP id="{1152B116-4DDF-40B2-E59A-469FEBCF5C64}" name="Resources">
@@ -54,11 +55,11 @@
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="SN76489"
                        headerPath="../../../3rdparty/Sms_Snd_Emu-0.1.1&#10;" osxCompatibility="10.9 SDK"
-                       enablePluginBinaryCopyStep="1" recommendedWarnings="LLVM"/>
+                       enablePluginBinaryCopyStep="1" recommendedWarnings="LLVM" macOSDeploymentTarget="10.9"/>
         <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="SN76489"
                        headerPath="../../../3rdparty/Sms_Snd_Emu-0.1.1&#10;" osxArchitecture="64BitIntel"
                        osxCompatibility="10.9 SDK" enablePluginBinaryCopyStep="1" recommendedWarnings="LLVM"
-                       linkTimeOptimisation="0"/>
+                       linkTimeOptimisation="0" macOSDeploymentTarget="10.9"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="../modules/juce/modules"/>
@@ -81,27 +82,28 @@
         <MODULEPATH id="gin_plugin" path="../modules/gin/modules"/>
         <MODULEPATH id="gin_dsp" path="../modules/gin/modules"/>
         <MODULEPATH id="juce_dsp" path="../modules/juce/modules"/>
+        <MODULEPATH id="gin_gui" path="../modules/gin/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
-    <VS2019 targetFolder="Builds/VisualStudio2019" toolset="v142" vstLegacyFolder="../modules/plugin_sdk/vstsdk2.4">
+    <VS2022 targetFolder="Builds/VisualStudio2019" vstLegacyFolder="../modules/plugin_sdk/vstsdk2.4">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="Win32"
-                       isDebug="1" optimisation="1" targetName="SN76489_32b" headerPath="../../../3rdparty/Sms_Snd_Emu-0.1.1&#10;"
+                       isDebug="1" optimisation="1" targetName="SN76489" headerPath="../../../3rdparty/Sms_Snd_Emu-0.1.1&#10;"
                        postbuildCommand="copy /Y &quot;$(OutDir)\$(TargetFileName)&quot; &quot;C:\Program Files (x86)\VSTPlugins&quot;"
                        debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
                        useRuntimeLibDLL="0"/>
         <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="Win32"
-                       isDebug="0" optimisation="3" targetName="SN76489_32b" headerPath="../../../3rdparty/Sms_Snd_Emu-0.1.1&#10;"
+                       isDebug="0" optimisation="3" targetName="SN76489" headerPath="../../../3rdparty/Sms_Snd_Emu-0.1.1&#10;"
                        postbuildCommand="copy /Y &quot;$(OutDir)\$(TargetFileName)&quot; &quot;C:\Program Files (x86)\VSTPlugins&quot;"
                        debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
                        linkTimeOptimisation="0" useRuntimeLibDLL="0"/>
         <CONFIGURATION name="Debug64" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
-                       isDebug="1" optimisation="1" targetName="SN76489_64b" headerPath="../../../3rdparty/Sms_Snd_Emu-0.1.1&#10;"
+                       isDebug="1" optimisation="1" targetName="SN76489" headerPath="../../../3rdparty/Sms_Snd_Emu-0.1.1&#10;"
                        postbuildCommand="copy /Y &quot;$(OutDir)\$(TargetFileName)&quot; &quot;C:\Program Files\VSTPlugins&quot;"
                        debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
                        useRuntimeLibDLL="0"/>
         <CONFIGURATION name="Release64" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
-                       isDebug="0" optimisation="3" targetName="SN76489_64b" headerPath="../../../3rdparty/Sms_Snd_Emu-0.1.1&#10;"
+                       isDebug="0" optimisation="3" targetName="SN76489" headerPath="../../../3rdparty/Sms_Snd_Emu-0.1.1&#10;"
                        postbuildCommand="copy /Y &quot;$(OutDir)\$(TargetFileName)&quot; &quot;C:\Program Files\VSTPlugins&quot;"
                        debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
                        linkTimeOptimisation="0" useRuntimeLibDLL="0"/>
@@ -127,8 +129,9 @@
         <MODULEPATH id="gin_plugin" path="../modules/gin/modules"/>
         <MODULEPATH id="gin_dsp" path="../modules/gin/modules"/>
         <MODULEPATH id="juce_dsp" path="../modules/juce/modules"/>
+        <MODULEPATH id="gin_gui" path="../modules/gin/modules"/>
       </MODULEPATHS>
-    </VS2019>
+    </VS2022>
     <LINUX_MAKE targetFolder="Builds/LinuxMakefile" extraCompilerFlags="-fvisibility=hidden"
                 extraLinkerFlags="-fdata-sections -ffunction-sections -Wl,--gc-sections -Wl,-O1 -Wl,--as-needed -Wl,--strip-all"
                 vstLegacyFolder="../modules/plugin_sdk/vstsdk2.4">
@@ -161,6 +164,7 @@
         <MODULEPATH id="gin_plugin" path="../modules/gin/modules"/>
         <MODULEPATH id="gin_dsp" path="../modules/gin/modules"/>
         <MODULEPATH id="juce_dsp" path="../modules/juce/modules"/>
+        <MODULEPATH id="gin_gui" path="../modules/gin/modules"/>
       </MODULEPATHS>
     </LINUX_MAKE>
   </EXPORTFORMATS>
@@ -168,6 +172,7 @@
     <MODULE id="dRowAudio" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="gin" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="gin_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="gin_gui" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="gin_plugin" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0"/>
     <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0"/>
