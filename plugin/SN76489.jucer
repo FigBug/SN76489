@@ -85,7 +85,7 @@
         <MODULEPATH id="gin_gui" path="../modules/gin/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
-    <VS2022 targetFolder="Builds/VisualStudio2019" vstLegacyFolder="../modules/plugin_sdk/vstsdk2.4">
+    <VS2022 targetFolder="Builds/VisualStudio2022" vstLegacyFolder="../modules/plugin_sdk/vstsdk2.4">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="Win32"
                        isDebug="1" optimisation="1" targetName="SN76489" headerPath="../../../3rdparty/Sms_Snd_Emu-0.1.1&#10;"
