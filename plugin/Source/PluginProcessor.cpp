@@ -11,8 +11,6 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
-using namespace gin;
-
 const char* SN76489AudioProcessor::paramPulse1Level      = "pulse1Level";
 const char* SN76489AudioProcessor::paramPulse2Level      = "pulse2Level";
 const char* SN76489AudioProcessor::paramPulse3Level      = "pulse3Level";
@@ -21,17 +19,17 @@ const char* SN76489AudioProcessor::paramNoiseWhite       = "noiseWhite";
 const char* SN76489AudioProcessor::paramNoiseShift       = "noiseShift";
 
 //==============================================================================
-String percentTextFunction (const Parameter& p, float v)
+static juce::String percentTextFunction (const gin::Parameter& p, float v)
 {
-    return String::formatted ("%.0f%%", v / p.getUserRangeEnd() * 100);
+    return juce::String::formatted ("%.0f%%", v / p.getUserRangeEnd() * 100);
 }
 
-String typeTextFunction (const Parameter&, float v)
+static juce::String typeTextFunction (const gin::Parameter&, float v)
 {
     return v > 0.0f ? "White" : "Periodic";
 }
 
-String speedTextFunction (const Parameter&, float v)
+static juce::String speedTextFunction (const gin::Parameter&, float v)
 {
     switch (int (v))
     {
@@ -73,9 +71,9 @@ void SN76489AudioProcessor::releaseResources()
 {
 }
 
-void SN76489AudioProcessor::runUntil (int& done, AudioSampleBuffer& buffer, int pos)
+void SN76489AudioProcessor::runUntil (int& done, juce::AudioSampleBuffer& buffer, int pos)
 {
-    int todo = jmin (pos, buffer.getNumSamples()) - done;
+    int todo = std::min (pos, buffer.getNumSamples()) - done;
     
     while (todo > 0)
     {
@@ -83,7 +81,7 @@ void SN76489AudioProcessor::runUntil (int& done, AudioSampleBuffer& buffer, int 
         {
             blip_sample_t out[1024];
             
-            int count = int (buf.read_samples (out, (size_t) jmin (todo, 1024 / 2, (int) buf.samples_avail())));
+			int count = int (buf.read_samples (out, (size_t) std::min ({todo, 1024 / 2, (int) buf.samples_avail()})));
         
             auto data = buffer.getWritePointer (0, done);
             for (int i = 0; i < count; i++)
@@ -100,8 +98,10 @@ void SN76489AudioProcessor::runUntil (int& done, AudioSampleBuffer& buffer, int 
     }
 }
 
-void SN76489AudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& midi)
+void SN76489AudioProcessor::processBlock (juce::AudioSampleBuffer& buffer, juce::MidiBuffer& midi)
 {
+	buffer.clear();
+	
     const float p1Level = getParameter (paramPulse1Level)->getUserValue();
     const float p2Level = getParameter (paramPulse2Level)->getUserValue();
     const float p3Level = getParameter (paramPulse3Level)->getUserValue();
@@ -176,8 +176,8 @@ void SN76489AudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer&
             
             if (curNote != -1)
             {
-                int period = int (3579545.0 / (MidiMessage::getMidiNoteInHertz (curNote) * 2 * 16));
-                period = jlimit (1, 0x3ff, period);
+                int period = int (3579545.0 / (juce::MidiMessage::getMidiNoteInHertz (curNote) * 2 * 16));
+                period = juce::jlimit (1, 0x3ff, period);
                 
                 apu.write_data (time, 0x80 | (0 << 5) | (0 << 4) | (period & 0xF));
                 apu.write_data (time, period >> 4);
@@ -194,8 +194,8 @@ void SN76489AudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer&
             
             if (curNote != -1)
             {
-                int period = int (3579545.0 / (MidiMessage::getMidiNoteInHertz (curNote) * 2 * 16));
-                period = jlimit (1, 0x3ff, period);
+                int period = int (3579545.0 / (juce::MidiMessage::getMidiNoteInHertz (curNote) * 2 * 16));
+                period = juce::jlimit (1, 0x3ff, period);
                 
                 apu.write_data (time, 0x80 | (1 << 5) | (0 << 4) | (period & 0xF));
                 apu.write_data (time, period >> 4);
@@ -212,8 +212,8 @@ void SN76489AudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer&
             
             if (curNote != -1)
             {
-                int period = int (3579545.0 / (MidiMessage::getMidiNoteInHertz (curNote) * 2 * 16));
-                period = jlimit (1, 0x3ff, period);
+                int period = int (3579545.0 / (juce::MidiMessage::getMidiNoteInHertz (curNote) * 2 * 16));
+                period = juce::jlimit (1, 0x3ff, period);
                 
                 apu.write_data (time, 0x80 | (2 << 5) | (0 << 4) | (period & 0xF));
                 apu.write_data (time, period >> 4);
@@ -254,14 +254,14 @@ bool SN76489AudioProcessor::hasEditor() const
     return true;
 }
 
-AudioProcessorEditor* SN76489AudioProcessor::createEditor()
+juce::AudioProcessorEditor* SN76489AudioProcessor::createEditor()
 {
     return new SN76489AudioProcessorEditor (*this);
 }
 
 //==============================================================================
 // This creates new instances of the plugin..
-AudioProcessor* JUCE_CALLTYPE createPluginFilter()
+juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new SN76489AudioProcessor();
 }

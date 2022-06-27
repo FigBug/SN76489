@@ -12,8 +12,6 @@
 #include "PluginEditor.h"
 #include "BinaryData.h"
 
-using namespace gin;
-
 //==============================================================================
 SN76489AudioProcessorEditor::SN76489AudioProcessorEditor (SN76489AudioProcessor& p)
   : gin::ProcessorEditor (p), proc (p)
@@ -22,7 +20,7 @@ SN76489AudioProcessorEditor::SN76489AudioProcessorEditor (SN76489AudioProcessor&
     
     for (auto pp : p.getPluginParameters())
     {
-        ParamComponent* c = pp->isOnOff() ? (ParamComponent*)new Switch (pp) : (ParamComponent*)new Knob (pp);
+        auto c = pp->isOnOff() ? (gin::ParamComponent*)new gin::Switch (pp) : (gin::ParamComponent*)new gin::Knob (pp);
         
         addAndMakeVisible (c);
         controls.add (c);
@@ -46,7 +44,7 @@ SN76489AudioProcessorEditor::~SN76489AudioProcessorEditor()
 }
 
 //==============================================================================
-void SN76489AudioProcessorEditor::paint (Graphics& g)
+void SN76489AudioProcessorEditor::paint (juce::Graphics& g)
 {
     gin::ProcessorEditor::paint (g);
 }
