@@ -10,7 +10,7 @@
               aaxIdentifier="com.socalabs.SN76489" pluginAAXCategory="2" companyName="SocaLabs"
               companyWebsite="www.socalabs.com" companyEmail="info@socalabs.com"
               displaySplashScreen="1" reportAppUsage="0" splashScreenColour="Dark"
-              buildStandalone="1" enableIAA="0" cppLanguageStandard="17" pluginFormats="buildAU,buildStandalone,buildVST,buildVST3"
+              buildStandalone="1" enableIAA="0" cppLanguageStandard="17" pluginFormats="buildAU,buildLV2,buildStandalone,buildVST,buildVST3"
               pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn"
               pluginAUMainType="'aumu'" pluginVSTCategory="kPlugCategSynth"
               jucerFormatVersion="1" defines="JUCE_DISPLAY_SPLASH_SCREEN=0&#10;JUCE_MODAL_LOOPS_PERMITTED=1"
