@@ -14,7 +14,7 @@
               pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn"
               pluginAUMainType="'aumu'" pluginVSTCategory="kPlugCategSynth"
               jucerFormatVersion="1" defines="JUCE_DISPLAY_SPLASH_SCREEN=0&#10;JUCE_MODAL_LOOPS_PERMITTED=1"
-              useAppConfig="0" addUsingNamespaceToJuceHeader="0">
+              useAppConfig="0" addUsingNamespaceToJuceHeader="0" lv2Uri="https://socalabs.com/sn76489/">
   <MAINGROUP id="dPRjsF" name="SN76489">
     <GROUP id="{EE796482-0D02-0052-80F4-B1FE6CE0D41A}" name="Source">
       <GROUP id="{1152B116-4DDF-40B2-E59A-469FEBCF5C64}" name="Resources">
