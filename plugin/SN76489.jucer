@@ -51,8 +51,7 @@
   </MAINGROUP>
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" extraCompilerFlags="-Wunused-value"
-               vstLegacyFolder="../modules/plugin_sdk/vstsdk2.4" hardenedRuntime="1"
-               extraDefs="JUCE_COREGRAPHICS_DRAW_ASYNC=1">
+               vstLegacyFolder="../modules/plugin_sdk/vstsdk2.4" extraDefs="JUCE_COREGRAPHICS_DRAW_ASYNC=1">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="SN76489"
                        headerPath="../../../3rdparty/Sms_Snd_Emu-0.1.1&#10;" osxCompatibility="10.9 SDK"
