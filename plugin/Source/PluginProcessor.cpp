@@ -32,8 +32,16 @@ static juce::String speedTextFunction (const gin::Parameter&, float v)
 }
 
 //==============================================================================
+static gin::ProcessorOptions createProcessorOptions()
+{
+    gin::ProcessorOptions opts;
+    opts.withAdditionalCredits ({"Shay Green"});
+    opts.hasMidiLearn = true;
+    return opts;
+}
+
 SN76489AudioProcessor::SN76489AudioProcessor()
-    : gin::Processor (false, gin::ProcessorOptions().withAdditionalCredits({"Shay Green"}))
+    : gin::Processor (false, createProcessorOptions())
 {
     addExtParam (paramPulse1Level, "Pulse 1 Level", "Pulse 1", "", { 0.0f, 1.0f,  0.0f, 1.0f }, 1.0f, 0.0f, percentTextFunction);
     addExtParam (paramPulse2Level, "Pulse 2 Level", "Pulse 2", "", { 0.0f, 1.0f,  0.0f, 1.0f }, 0.0f, 0.0f, percentTextFunction);
@@ -93,8 +101,11 @@ void SN76489AudioProcessor::runUntil (int& done, juce::AudioSampleBuffer& buffer
 
 void SN76489AudioProcessor::processBlock (juce::AudioSampleBuffer& buffer, juce::MidiBuffer& midi)
 {
+    if (midiLearn)
+        midiLearn->processBlock (midi, buffer.getNumSamples());
+
 	buffer.clear();
-	
+
     const float p1Level = getParameter (paramPulse1Level)->getUserValue();
     const float p2Level = getParameter (paramPulse2Level)->getUserValue();
     const float p3Level = getParameter (paramPulse3Level)->getUserValue();
