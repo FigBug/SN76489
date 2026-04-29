@@ -48,3 +48,7 @@ plugin/Builds/VisualStudio2017/.vs
 xcuserdata
 Builds
 JuceLibraryCode
+bin
+Installer/macOS/bin
+Installer/win/bin
+Installer/_flat_presets
