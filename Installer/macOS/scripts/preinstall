@@ -3,4 +3,5 @@ rm -Rf "/Library/Audio/Plug-Ins/VST/SN76489.vst"
 rm -Rf "/Library/Audio/Plug-Ins/VST3/SN76489.vst3"
 rm -Rf "/Library/Audio/Plug-Ins/Components/SN76489.component"
 rm -Rf "/Library/Audio/Plug-Ins/CLAP/SN76489.clap"
+rm -Rf "/Library/Audio/Presets/SocaLabs/SN76489/Presets"
 exit 0

@@ -12,6 +12,9 @@ class SN76489AudioProcessor : public gin::Processor
 {
 public:
     //==============================================================================
+    juce::File getProgramDirectory() override;
+    juce::Array<juce::File> getFactoryProgramDirectories() override;
+
     SN76489AudioProcessor();
     ~SN76489AudioProcessor() override;
 

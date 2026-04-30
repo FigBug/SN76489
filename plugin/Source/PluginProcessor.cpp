@@ -32,6 +32,47 @@ static juce::String speedTextFunction (const gin::Parameter&, float v)
 }
 
 //==============================================================================
+//==============================================================================
+namespace
+{
+    juce::File userResourceRoot()
+    {
+       #if JUCE_MAC
+        return juce::File::getSpecialLocation (juce::File::userHomeDirectory)
+                  .getChildFile ("Library/Audio/Presets/SocaLabs/SN76489");
+       #elif JUCE_WINDOWS
+        return juce::File::getSpecialLocation (juce::File::userApplicationDataDirectory)
+                  .getChildFile ("SocaLabs/SN76489");
+       #else
+        return juce::File::getSpecialLocation (juce::File::userApplicationDataDirectory)
+                  .getChildFile ("SocaLabs/SN76489");
+       #endif
+    }
+
+    juce::File systemResourceRoot()
+    {
+       #if JUCE_MAC
+        return juce::File ("/Library/Audio/Presets/SocaLabs/SN76489");
+       #elif JUCE_WINDOWS
+        return juce::File::getSpecialLocation (juce::File::commonApplicationDataDirectory)
+                  .getChildFile ("SocaLabs/SN76489");
+       #else
+        return juce::File ("/usr/share/SocaLabs/SN76489");
+       #endif
+    }
+
+    juce::File legacyUserProgramDirectory()
+    {
+       #if JUCE_MAC
+        return juce::File::getSpecialLocation (juce::File::userApplicationDataDirectory)
+                  .getChildFile ("Application Support/com.socalabs/SN76489/programs");
+       #else
+        return juce::File::getSpecialLocation (juce::File::userApplicationDataDirectory)
+                  .getChildFile ("com.socalabs/SN76489/programs");
+       #endif
+    }
+}
+
 static gin::ProcessorOptions createProcessorOptions()
 {
     return gin::ProcessorOptions()
@@ -268,3 +309,17 @@ juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new SN76489AudioProcessor();
 }
+//==============================================================================
+juce::File SN76489AudioProcessor::getProgramDirectory()
+{
+    auto dir = userResourceRoot().getChildFile ("Presets");
+    if (! dir.isDirectory())
+        dir.createDirectory();
+    return dir;
+}
+
+juce::Array<juce::File> SN76489AudioProcessor::getFactoryProgramDirectories()
+{
+    return { systemResourceRoot().getChildFile ("Presets") };
+}
+

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<state name="Init" valueTree="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#13;&#10;&#13;&#10;&lt;state/&gt;&#13;&#10;">
+  <param uid="pulse1Level" val="1.0"/>
+  <param uid="pulse2Level" val="0.0"/>
+  <param uid="pulse3Level" val="0.0"/>
+  <param uid="noiseLevel" val="0.0"/>
+  <param uid="noiseWhite" val="0.0"/>
+  <param uid="noiseShift" val="0.0"/>
+</state>
