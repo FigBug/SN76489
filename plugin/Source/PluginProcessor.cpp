@@ -11,26 +11,40 @@ const char* SN76489AudioProcessor::paramNoiseWhite       = "noiseWhite";
 const char* SN76489AudioProcessor::paramNoiseShift       = "noiseShift";
 
 //==============================================================================
-static juce::String percentTextFunction (const gin::Parameter& p, float v)
+static std::variant<float, juce::String> percentTextFunction (const gin::Parameter& p, const std::variant<float, juce::String>& in)
 {
-    return juce::String::formatted ("%.0f%%", v / p.getUserRangeEnd() * 100);
+    if (auto v = std::get_if<float> (&in))
+        return juce::String::formatted ("%.0f%%", *v / p.getUserRangeEnd() * 100);
+
+    return std::get<juce::String> (in).getFloatValue() / 100.0f * p.getUserRangeEnd();
 }
 
-static juce::String typeTextFunction (const gin::Parameter&, float v)
+static std::variant<float, juce::String> typeTextFunction (const gin::Parameter&, const std::variant<float, juce::String>& in)
 {
-    return v > 0.0f ? "White" : "Periodic";
+    if (auto v = std::get_if<float> (&in))
+        return juce::String (*v > 0.0f ? "White" : "Periodic");
+
+    auto t = std::get<juce::String> (in).trim();
+    if (t.equalsIgnoreCase ("White"))    return 1.0f;
+    if (t.equalsIgnoreCase ("Periodic")) return 0.0f;
+    return t.getFloatValue();
 }
 
-static juce::String speedTextFunction (const gin::Parameter&, float v)
+static std::variant<float, juce::String> speedTextFunction (const gin::Parameter&, const std::variant<float, juce::String>& in)
 {
-    switch (int (v))
+    const juce::StringArray names { "Fast", "Medium", "Slow", "Tone 2" };
+
+    if (auto v = std::get_if<float> (&in))
     {
-        case 0: return "Fast";
-        case 1: return "Medium";
-        case 2: return "Slow";
-        case 3: return "Tone 2";
+        auto idx = int (*v);
+        return juce::isPositiveAndBelow (idx, names.size()) ? names[idx] : juce::String();
     }
-    return "";
+
+    auto t = std::get<juce::String> (in).trim();
+    for (int i = 0; i < names.size(); i++)
+        if (t.equalsIgnoreCase (names[i]))
+            return float (i);
+    return t.getFloatValue();
 }
 
 //==============================================================================
